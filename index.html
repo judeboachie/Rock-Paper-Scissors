@@ -10,185 +10,67 @@
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
         crossorigin="anonymous"
         />
-        
+
+        <link href="rps-stylesheet.css" rel="stylesheet" type="text/css">
+
     </header>
+
     <body>
-        <input id="input" type="text" value="" placeholder="Enter your name">
-        <button id="addName" onclick="addName()">Submit</button> 
+        <div id="title" class="flex-center">
+            <h1>WELCOME TO ROCK-PAPER-SCISSORS</h1>
+        </div>
+
+        <div class="input-container">
+            <input id="input" type="text" value="" placeholder="Enter your name"> &nbsp
+            <button id="addName" onclick="addName()">START</button>
+        </div> 
+
         <br/>
         <br/>
-        <button id="rock" onclick="selection('Rock')">Rock</button>
-        <button id="paper" onclick="selection('Paper')">Paper</button>
-        <button id="scissors" onclick="selection('Scissors')">Scissors</button>
-        
+
+        <div class="flex-center">
+            <button id="rock" class="button" onclick="selection('Rock')">Rock</button>
+            <button id="paper" class="button" onclick="selection('Paper')">Paper</button>
+            <button id="scissors" class="button" onclick="selection('Scissors')">Scissors</button>
+        </div>
+
+        <br/> 
+
+        <div id="image-container" class="flex-center">
+            <img id="rock-image" class="image" src="https://static.thenounproject.com/png/477918-200.png" alt="Rock">
+            <img id="paper-image" class="image" src="https://static.thenounproject.com/png/477922-200.png" alt="Paper">
+            <img id="scissors-image" class="image" src="https://static.thenounproject.com/png/477919-200.png" alt="Scissors">
+        </div>
+
+        <br/>
+
         <div id="result"></div>
+
+        <div id="userScoreboard" class="flex-center"></div>
+
+        <br/>
+
+        <div id="botScoreboard" class="flex-center"></div>
+
+        <br/>
+
+        <div id="totalWinnings" class="flex-center"></div>
+
+        <br/>
+
+        <div id="playAgainText" class="flex-center"></div>
+
         <br/>
         <br/>
-        <div id="userScoreboard"></div>
         <br/>
-        <div id="botScoreboard"></div>
-        <br/>
-        <div id="playAgainText"></div>
-        <br/>
-        <br/>
-        <button id="restart" onclick="restartGame()">Restart</button>
+
+        <div class="flex-center">
+            <button id="restart" onclick="restartGame()">Restart</button>
+        </div>
     </body>
-    <script>
-        let name = "Bob"; // by default
-        let userMove = "Rock"; // by default
-        let botMove = "Rock"; // by default
-        let userScore = 0;
-        let botScore = 0;
-        
-               
-        const choices = ["Rock", "Paper", "Scissors"];
-        const submitButton = document.getElementById("addName");
-        const inputBox = document.getElementById("input");
 
-        const rockButton = document.getElementById("rock");
-        const paperButton = document.getElementById("paper");
-        const scissorsButton = document.getElementById("scissors");
+    <script src="rps.js"></script>
 
-        const resultTextElement = document.getElementById("result");
-        const userScoreboard = document.getElementById("userScoreboard");
-        const botScoreBoard = document.getElementById("botScoreboard");
-        const playAgain = document.getElementById("playAgainText");
-
-        function addName() {
-            const input = document.getElementById("input").value;
-            if (input !== "") {
-                name = input;
-            }
-            submitButton.disabled = true;
-            inputBox.disabled = true;
-
-        }
-        
-        // Keep track of what the user selected
-        // and update the UI
-        function selection(choice) {
-            userMove = choice;
-            // Bot's move
-            botMakeMove();
-            displayText();
-        }
-        
-        // Gives back what the bot's move is
-        function botMakeMove() {
-            // rounds the random value to a whole number
-            botMove = choices[Math.floor(Math.random() * 3)] // Randomly selects index 0, 1, or 2
-        }
-
-        // Figure out who wins ? ? 
-        function getResult() {
-            if (userMove == "Rock") {
-                if (botMove == "Rock") {
-                    return "Draw!";
-                } else if (botMove == "Paper") {
-                    return "You lose!";
-                } else {
-                    return "You win!";
-                }
-                
-            } else if (userMove == "Paper") {
-                if (botMove == "Rock") {
-                    return "You win!"
-                } else if (botMove == "Paper") {
-                    return "Draw!";
-                } else {
-                    return "You lose!";
-                }
-                
-            } else {
-                if (botMove == "Rock") {
-                    return "You lose!";
-                } else if (botMove == "Paper") {
-                    return "You win!";
-                } else {
-                    return "Draw!";
-                }
-                
-            }
-        }
-        
-        // Called by selection(choice)
-        function displayText() {
-            resultTextElement.innerHTML = "";
-
-            let description = document.createElement("p");
-            // USER picked X and BOT picked Y
-            description.innerHTML = `${name} picked ${userMove} and BOT picked ${botMove}`;
-            
-            let resultElement = document.createElement("p");
-            resultElement.innerHTML = getResult();
-            
-            resultTextElement.appendChild(description);
-            resultTextElement.appendChild(resultElement);
-
-            keepScore(getResult());
-        }
-        
-        // Updates the score... called by displayText()
-        function keepScore(){
-            if(getResult() == "You win!"){
-                userScore += 1;
-            } else if (getResult() == "You lose!"){
-                botScore += 1;
-            }
-            tallyScore();
-            matchOver(userScore, botScore);
-        }
-
-        // Tallies/displays the score... called by keepScore()
-        function tallyScore(){
-            userScoreboard.innerHTML = `${name.toUpperCase()}: ${userScore}`;
-            botScoreboard.innerHTML = `BOT: ${botScore}`;
-
-        }
-
-        // Tells the player that the game is over... called by keepScore(userScore, botScore) 
-        function matchOver(){
-            if(userScore == 2){
-                userScoreboard.innerHTML = `${name.toUpperCase()}: ${userScore}`;
-                playAgain.innerHTML = `${name} has won! Would you like to play again?`;
-                disableButtons();
-            } else if (botScore == 2){
-                botScoreboard.innerHTML = `BOT: ${botScore}`
-                playAgain.innerHTML = "BOT has won! Would you like to play again?";
-                disableButtons();
-            }
-            
-        }
-
-        
-
-        // Disables all buttons once the match is over
-        function disableButtons(){
-            rockButton.disabled = true;
-            paperButton.disabled = true;
-            scissorsButton.disabled = true;
-        }
-
-        //Cleans the slate
-        function restartGame(){
-            input.value = "";
-            name = "Bob";
-            userScore = 0;
-            botScore = 0;
-            resultTextElement.innerHTML = "";
-            userScoreboard.innerHTML = "";
-            botScoreBoard.innerHTML = "";
-            playAgain.innerHTML = "";
-            rockButton.disabled = false;
-            paperButton.disabled = false;
-            scissorsButton.disabled = false;
-            submitButton.disabled = false;
-            inputBox.disabled = false;
-        }
-        // I feel like a while loop would've been appropriate but I wasn't sure how to go about it
-
-
-    </script>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
@@ -196,7 +78,3 @@
       ></script>
       
 </html>
-
-
-
-

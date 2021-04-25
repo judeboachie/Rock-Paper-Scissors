@@ -1,0 +1,100 @@
+/*Stylesheet for Rock-Paper-Scissors*/
+
+body{
+    background-image: linear-gradient(lightblue, cyan);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;            
+}
+
+button{
+    border-radius: 15px;
+    width: 10%;
+    border: none;
+    text-align: center;
+    padding: 10px 20px;
+    word-wrap: break-word;
+}
+
+.button {
+    display: none;
+    margin: auto;              
+}
+
+.button:hover{
+    animation: myColorAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+#rock-image{
+    display: none;
+    border-radius: 50%;
+}
+
+#paper-image{
+    display: none;
+    border-radius: 50%;
+}
+
+#scissors-image{
+    display: none;
+    border-radius: 50%;
+}
+
+#restart{
+    display: none;
+}           
+
+.input-container{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+#input{
+    border-radius: 5px;
+}
+
+.image{
+    margin: auto;
+}
+
+#result{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    font-weight: bold;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+@keyframes myColorAnimation{
+ 0%{background-color: red;}
+ 20%{background-color: orange;}
+ 40%{background-color: yellow;}
+ 60%{background-color: green;}
+ 80%{background-color: blue;}
+ 100%{background-color: purple;}
+ }
+
+@keyframes winAnimation{
+    0%{background-color: lightgreen}
+    40%{background-color: green}
+}
+
+@keyframes loseAnimation{
+    0%{background-color: pink}
+    40%{background-color: red}
+}
+
+@keyframes drawAnimation{
+    0%{background-color: lightyellow}
+    40%{background-color: yellow}
+}
