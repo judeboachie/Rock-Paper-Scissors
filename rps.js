@@ -1,4 +1,4 @@
-let name = "Bob"; // by default
+let playerName = "Bob"; // by default
         let userMove = "Rock"; // by default
         let botMove = "Rock"; // by default
         let userScore = 0;
@@ -37,7 +37,7 @@ let name = "Bob"; // by default
         function addName() {
             const input = document.getElementById("input").value;
             if (input !== "") {
-                name = input;
+                playerName = input;
             }
             submitButton.style.display = "none";
             inputBox.style.display = "none";
@@ -112,7 +112,7 @@ let name = "Bob"; // by default
             resultTextElement.innerHTML = "";
 
             let description = document.createElement("p");
-            description.innerHTML = `${name} picked ${userMove} and BOT picked ${botMove}`;
+            description.innerHTML = `${playerName} picked ${userMove} and BOT picked ${botMove}`;
             
             let resultElement = document.createElement("p");
             resultElement.innerHTML = getResult();
@@ -120,7 +120,7 @@ let name = "Bob"; // by default
             resultTextElement.appendChild(description);
             resultTextElement.appendChild(resultElement);
 
-            userScoreboard.innerHTML = `${name.toUpperCase()}: ${userScore}`;
+            userScoreboard.innerHTML = `${playerName.toUpperCase()}: ${userScore}`;
             botScoreboard.innerHTML = `BOT: ${botScore}`;
         }
 
@@ -168,8 +168,8 @@ let name = "Bob"; // by default
         // Tells the player that the game is over... called by keepScore(userScore, botScore) 
         function matchOver(){
             if(userScore == 2){
-                userScoreboard.innerHTML = `${name.toUpperCase()}: ${userScore}`;
-                playAgain.innerHTML = `${name} has won! Would you like to play again?`;
+                userScoreboard.innerHTML = `${playerName.toUpperCase()}: ${userScore}`;
+                playAgain.innerHTML = `${playerName} has won! Would you like to play again?`;
                 disableButtons();
                 userWinnings += 1;
                 countWinnings();
@@ -184,7 +184,7 @@ let name = "Bob"; // by default
 
         // Tallies the total winnings...called by matchOver() 
         function countWinnings(){
-            totalWinnings.innerHTML = `${name.toUpperCase()}: ${userWinnings} wins -------------- BOT: ${botWinnings} wins`;
+            totalWinnings.innerHTML = `${playerName.toUpperCase()}: ${userWinnings} wins -------------- BOT: ${botWinnings} wins`;
         }
 
         
@@ -198,14 +198,10 @@ let name = "Bob"; // by default
 
         //Cleans the slate
         function restartGame(){
-            input.value = "";
-            name = "Bob";
             userScore = 0;
             botScore = 0;
 
-            inputBox.style.display = "inline";
-            submitButton.style.display ="inline";
-
+            
             elementList = [resultTextElement, userScoreboard, botScoreboard, playAgain];
             elementList.forEach((element) =>{
                 element.innerHTML = "";
